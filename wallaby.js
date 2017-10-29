@@ -1,29 +1,20 @@
 const path = require('path');
 
 module.exports = function(wallaby) {
+
+  // Use this is if not using scoped packages
+  // process.env.NODE_PATH += path.delimiter + path.join(wallaby.projectCacheDir, 'packages');
+
   return {
     files: [
-      {
-        pattern: 'packages/**'
-      },
-      {
-        pattern: 'packages/**/node_modules/**',
-        ignore: true
-      },
-      {
-        pattern: 'packages/**/__tests__/**',
-        ignore: true
-      }
+      'packages/**',
+      '!packages/**/node_modules/**',
+      '!packages/**/__tests__/**'
     ],
 
     tests: [
-      {
-        pattern: 'packages/**/__tests__/**'
-      },
-      {
-        pattern: 'packages/**/node_modules/**',
-        ignore: true
-      }
+      'packages/**/__tests__/**',
+      '!packages/**/node_modules/**'
     ],
 
     env: {
@@ -31,6 +22,7 @@ module.exports = function(wallaby) {
     },
 
     setup: w => {
+      // Use this is if using scoped packages (or any custom folder structure)
       const moduleAlias = require('module-alias');
       moduleAlias.addAliases({
         '@foo/bar1': w.projectCacheDir + '/packages/foo-bar1'
