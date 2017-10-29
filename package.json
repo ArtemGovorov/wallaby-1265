@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "lerna": "^2.4.0",
+    "module-alias": "^2.0.2"
+  }
+}
